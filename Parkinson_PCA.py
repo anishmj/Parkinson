@@ -37,7 +37,7 @@ def main():
             
             # Check if any input value is zero
             if any(value == 0 for value in features):
-                st.warning(f"All input values: {features}")
+                st.error("Please fill all the values.")
             else:
                 # Scale the features
                 scaled_features = scaler.transform([features])
