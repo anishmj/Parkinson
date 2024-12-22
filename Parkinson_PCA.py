@@ -37,7 +37,7 @@ def main():
             
             # Check if any input value is zero
             if any(value == 0 for value in features):
-                st.error("Please enter correct vocal value")
+                st.error("Please enter correct vocal values")
             else:
                 # Scale the features
                 scaled_features = scaler.transform([features])
