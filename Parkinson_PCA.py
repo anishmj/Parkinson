@@ -3,8 +3,8 @@ import pickle
 import streamlit as st
 
 # Load the scaler and model
-scaler = pickle.load(open('E:/Parkinson_PCA/scaler.sav', 'rb'))
-loaded_model = pickle.load(open('E:/Parkinson_PCA/parkinsons_hybrid_model.sav', 'rb'))
+scaler = pickle.load(open('scaler.sav', 'rb'))
+loaded_model = pickle.load(open('parkinsons_hybrid_model.sav', 'rb'))
 
 def main():
     st.title("Parkinson Prediction Web App")
