@@ -28,23 +28,31 @@ def main():
     parkinsons_diagnosis = ''
     
     if st.button("Parkinson's Test Result"):
-        # Convert inputs to float and create a feature array
-        features = np.array([[float(fo), float(fhi), float(flo), 
-                               float(Jitter_percent), float(Shimmer), 
-                               float(Shimmer_dB), float(APQ), 
-                               float(NHR)]])
-
-        # Scale the features
-        scaled_features = scaler.transform(features)
+        try:
+            # Convert inputs to float and create a feature array
+            features = [float(fo), float(fhi), float(flo), 
+                        float(Jitter_percent), float(Shimmer), 
+                        float(Shimmer_dB), float(APQ), 
+                        float(NHR)]
+            
+            # Check if any input value is zero
+            if any(value == 0 for value in features):
+                st.warning(f"All input values: {features}")
+            else:
+                # Scale the features
+                scaled_features = scaler.transform([features])
+                
+                # Make a prediction using the loaded model
+                prediction = loaded_model.predict(scaled_features)
+                
+                # Convert prediction to a readable format
+                parkinsons_diagnosis = 'Positive for Parkinson\'s Disease' if prediction[0] == 1 else 'Negative for Parkinson\'s Disease'
+                
+                # Display the prediction result
+                st.success(parkinsons_diagnosis)
         
-        # Make a prediction using the loaded model
-        prediction = loaded_model.predict(scaled_features)
-        
-        # Convert prediction to a readable format
-        parkinsons_diagnosis = 'Positive for Parkinson\'s Disease' if prediction[0] == 1 else 'Negative for Parkinson\'s Disease'
+        except ValueError:
+            st.error("Please enter valid numeric values for all inputs.")
     
-    # Display the prediction result
-    st.success(parkinsons_diagnosis)
-
 if __name__ == '__main__':
     main()
